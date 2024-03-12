@@ -1,4 +1,5 @@
-from machine import Pin, Timer
+from machine import Pin
+from time import sleep
 
 r_led1 = Pin(8, Pin.OUT)
 g_led1 = Pin(9, Pin.OUT)
@@ -8,27 +9,141 @@ b_led2 = Pin(12, Pin.OUT)
 o_led2 = Pin(13, Pin.OUT)
 g_led2 = Pin(14, Pin.OUT)
 r_led2 = Pin(15, Pin.OUT)
-
-def off():
-    return None
+leds = [0, 0, 0, 0, 0, 0, 0, 0]
 
 def on_off():
-    return None
-
+    r_led1.value(1)
+    g_led1.value(1)
+    o_led1.value(1)
+    b_led1.value(1)
+    b_led2.value(1)
+    o_led2.value(1)
+    g_led2.value(1)
+    r_led2.value(1)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    
 def nibbles():
-    return None
-
+    r_led1.value(1)
+    g_led1.value(1)
+    o_led1.value(1)
+    b_led1.value(1)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(1)
+    o_led2.value(1)
+    g_led2.value(1)
+    r_led2.value(1)
+    sleep(0.2)
+    
 def half_nibbles_right():
-    return None
+    r_led1.value(1)
+    g_led1.value(1)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(1)
+    b_led1.value(1)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(1)
+    o_led2.value(1)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(1)
+    r_led2.value(1)
+    sleep(0.2)
 
 def half_nibbles_left():
-    return None
-
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(1)
+    r_led2.value(1)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(1)
+    o_led2.value(1)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(0)
+    g_led1.value(0)
+    o_led1.value(1)
+    b_led1.value(1)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    r_led1.value(1)
+    g_led1.value(1)
+    o_led1.value(0)
+    b_led1.value(0)
+    b_led2.value(0)
+    o_led2.value(0)
+    g_led2.value(0)
+    r_led2.value(0)
+    sleep(0.2)
+    
 def shift_right():
-    return None
+    for i in range(0, 8):
+        if i == 0:
+            leds[i] = int(not leds[i])
+            sleep(0.2)
+        else:
+            leds[i] = int(not leds[i])
+            leds[i-1] = int(not leds[i-1])
+            sleep(0.2)
+        r_led1.value(leds[0])
+        g_led1.value(leds[1])
+        o_led1.value(leds[2])
+        b_led1.value(leds[3])
+        b_led2.value(leds[4])
+        o_led2.value(leds[5])
+        g_led2.value(leds[6])
+        r_led2.value(leds[7])
 
-def shift_left():
-    return None
-
-def zig_zag():
-    return None
+while True:
+    shift_right()
