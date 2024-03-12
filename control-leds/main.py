@@ -1,6 +1,10 @@
 from machine import Pin
 from time import sleep
 
+p16 = Pin(16, Pin.IN, Pin.PULL_DOWN)
+p17 = Pin(17, Pin.IN, Pin.PULL_DOWN)
+p18 = Pin(18, Pin.IN, Pin.PULL_DOWN)
+
 r_led1 = Pin(8, Pin.OUT)
 g_led1 = Pin(9, Pin.OUT)
 o_led1 = Pin(10, Pin.OUT)
@@ -196,4 +200,26 @@ def zig_zag():
         r_led2.value(leds[0])
 
 while True:
-    zig_zag()
+    if p16.value() == 0 and p17.value() == 0 and p18.value() == 0:
+        r_led1.value(0)
+        g_led1.value(0)
+        o_led1.value(0)
+        b_led1.value(0)
+        b_led2.value(0)
+        o_led2.value(0)
+        g_led2.value(0)
+        r_led2.value(0)
+    elif p16.value() == 0 and p17.value() == 0 and p18.value() == 1:
+        on_off()
+    elif p16.value() == 0 and p17.value() == 1 and p18.value() == 0:
+        nibbles()
+    elif p16.value() == 0 and p17.value() == 1 and p18.value() == 1:
+        half_nibbles_right()
+    elif p16.value() == 1 and p17.value() == 0 and p18.value() == 0:
+        half_nibbles_left()
+    elif p16.value() == 1 and p17.value() == 0 and p18.value() == 1:
+        shift(0)
+    elif p16.value() == 1 and p17.value() == 1 and p18.value() == 0:
+        shift(1)
+    elif p16.value() == 1 and p17.value() == 1 and p18.value() == 1:
+        zig_zag()
