@@ -127,15 +127,47 @@ def half_nibbles_left():
     r_led2.value(0)
     sleep(0.2)
     
-def shift_right():
+def shift(direction):
     for i in range(0, 8):
         if i == 0:
             leds[i] = int(not leds[i])
+            leds[7] = 0
             sleep(0.2)
         else:
             leds[i] = int(not leds[i])
             leds[i-1] = int(not leds[i-1])
             sleep(0.2)
+        # Right
+        if direction == 0:
+            r_led1.value(leds[0])
+            g_led1.value(leds[1])
+            o_led1.value(leds[2])
+            b_led1.value(leds[3])
+            b_led2.value(leds[4])
+            o_led2.value(leds[5])
+            g_led2.value(leds[6])
+            r_led2.value(leds[7])
+        # Left
+        else:
+            r_led1.value(leds[7])
+            g_led1.value(leds[6])
+            o_led1.value(leds[5])
+            b_led1.value(leds[4])
+            b_led2.value(leds[3])
+            o_led2.value(leds[2])
+            g_led2.value(leds[1])
+            r_led2.value(leds[0])
+
+def zig_zag():
+    for i in range(0, 8):
+        if i == 0:
+            leds[i] = int(not leds[i])
+            leds[7] = 0
+        else:
+            leds[i] = int(not leds[i])
+            leds[i-1] = int(not leds[i-1])
+            sleep(0.2)
+        # Right
         r_led1.value(leds[0])
         g_led1.value(leds[1])
         o_led1.value(leds[2])
@@ -144,6 +176,24 @@ def shift_right():
         o_led2.value(leds[5])
         g_led2.value(leds[6])
         r_led2.value(leds[7])
+        
+    for i in range(0, 8):
+        if i == 0:
+            leds[i] = int(not leds[i])
+            leds[7] = 0
+        else:
+            leds[i] = int(not leds[i])
+            leds[i-1] = int(not leds[i-1])
+            sleep(0.2)
+        # Right
+        r_led1.value(leds[7])
+        g_led1.value(leds[6])
+        o_led1.value(leds[5])
+        b_led1.value(leds[4])
+        b_led2.value(leds[3])
+        o_led2.value(leds[2])
+        g_led2.value(leds[1])
+        r_led2.value(leds[0])
 
 while True:
-    shift_right()
+    zig_zag()
